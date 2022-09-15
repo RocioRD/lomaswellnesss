@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="text-center m-5">
+      <hr>
+      <h1>
+          {{ titulo }}
+      </h1>
+      <hr>
+  </div>
+    
+<main>
+  <form action="./login" method="post">
+    <div class="mb-3 row">
+        <label for="email" class="col-sm-2 col-form-label">Email: </label>
+        <div class="col-sm-10">
+          <input type="email" class="form-control" name="email" id="email">
+        </div>
+      </div>
+  
+      <div class="mb-3 row">
+        <label for="password" class="col-sm-2 col-form-label">Password: </label>
+        <div class="col-sm-10">
+          <input type="password" class="form-control" name="password" id="password">
+        </div>
+      </div>
+      
+
+    <div class="mb-8 text-center">
+         <input type="submit" class="btn btn-lg btn-primary w-50 p-2" value="Ingresar">
+      </div>
+  </form>
+
+      {{#if codeError}}
+         <div class="text-center">
+         <h2 class="text-danger">
+             {{ mensaje }}
+         </h2>
+        </div>
+      {{else}}
+        <div class="text-center">
+          <h2 class="text-success">
+             {{ mensaje }}
+          </h2>
+        </div>
+      {{/if}}
+      
+</main>
