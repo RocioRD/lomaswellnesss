@@ -86,7 +86,7 @@ app.post('/crearusuario', (req, res) => {
 
    };
 
-   let sql = 'INSERT INTO user SET ?';
+   let sql = 'INSERT INTO user SET ?'; //CREATE O ALTA
     conexion.query(sql, datos, (error, result) => {
       mensaje = 'Perfecto!';
       codeError =false;
@@ -232,3 +232,54 @@ app.post('/contacto', (req, res) => {
     }
   
   })
+
+  app.get('/editarBorrar', (req, res) => {
+
+    let sql = `SELECT userId, userName, email FROM user`;
+
+    conexion.query(sql, (error, results, fields) => {
+      res.render('editarBorrar', {
+        nombre: 'Rocio Ruperto',
+        titulo: 'Editar Borrar usuario',
+        usuarios: results
+      });
+    })
+})
+/*
+CRUD = L-ABM
+C: CREATE - ALTA
+R: READ - LECTURA
+U: UPDATE -MODIFICACIÓN
+D: DELETE - BAJA - BORRAR
+
+*/
+app.get('/borrarUsuario/:idUsuario', (req, res) => {
+
+    let sql = `DELETE FROM user WHERE userId='` + req.params.idUsuario + `'`;
+  
+    conexion.query(sql, (error, results, fields) => {});
+    res.redirect('/editarBorrar');
+})
+
+app.get('/editarUsuario/:idUsuario', (req, res) => {
+  let codeError = 0
+  let mensaje = 'editando'
+// armar la query para que este el nombre y el email
+// enviar el nombre y el email a editarElUsiario
+//en la instruccion de abajo vas a agregar el nombre y el email que trajiste por sql
+// en la pagina editarElUsuario.hbs vas a mostrar el contenido de dichas variables como sucede con 'petela'
+let sql = `SELECT userId, userName, email FROM user where userID = `;
+  res.render('editarElUsuario', {
+    titulo: 'Editar usuario',
+    codeError,
+    mensaje,
+    nombre: 'petela'
+  });
+});
+
+app.post('/editarUsuario/:idUsuario', (req, res) => {
+  let sql = `UPDATE user SET userName = 'vivaboca' WHERE userId ='` + req.params.idUsuario + `'`;
+
+  conexion.query(sql, (error, results, fields) => {});
+  res.redirect('/editarBorrar');
+});

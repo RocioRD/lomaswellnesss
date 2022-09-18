@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="text-center m-5">
+      <hr>
+      <h1>
+          {{ titulo }}
+      </h1>
+      <hr>
+  </div>
+  <div class="row">
+     <table class="table table-borderless">
+       <thead>
+         <tr>
+           <th scope="col">#</th>
+           <th scope="col">Username</th>
+           <th scope="col">Email</th>
+           <th scope="col">Accion</th>
+         </tr>
+       </thead>
+       <tbody>
+         {{#each usuarios}}
+            <tr>
+             <th scope="row">{{ this.userId }}</th>
+             <td>{{ this.userName }}</td>
+             <td>{{ this.email }}</td>
+             <td><a href="./editarUsuario/{{ this.userId }}">Editar</a> | <a href="./borrarUsuario/{{ this.userId }}">Borrar</a></td>
+            </tr>
+         {{/each}} 
+       </tbody>
+     </table>
+  </div>
+</div>
+
+
+
+
+
+
+

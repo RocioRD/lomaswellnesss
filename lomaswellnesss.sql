@@ -1,5 +1,5 @@
-create database entregaPwi;
-use entregaPwi;
+create database lomaswellnesss;
+use lomaswellnesss;
 
 -- creacion de la tabla suscripcion --
 create table user(
