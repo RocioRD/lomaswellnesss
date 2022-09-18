@@ -8,7 +8,7 @@
   </div>
 
   <div class="row">
-    <form action="./crearusuario" method="post">
+    <form action="/editarUsuario/{{id}}" method="post">
       <div class="mb-3 row">
         <label for="nombre" class="col-sm-2 col-form-label">Nombre: </label>
         <div class="col-sm-10">
@@ -19,34 +19,15 @@
       <div class="mb-3 row">
         <label for="email" class="col-sm-2 col-form-label">Email: </label>
         <div class="col-sm-10">
-          <input type="email" class="form-control" name="email" id="email">
+          <input type="email" class="form-control" name="email" id="email" value={{email}}>
         </div>
       </div>
   
-      <div class="mb-3 row">
-        <label for="password" class="col-sm-2 col-form-label">Password: </label>
-        <div class="col-sm-10">
-          <input type="password" class="form-control" name="password" id="password">
-        </div>
-      </div>
   
       <div class="mb-8 text-center">
-         <input type="submit" class="btn btn-lg btn-primary w-50 p-2" value="Crear">
+         <input type="submit" class="btn btn-lg btn-primary w-50 p-2" value="Editar">
       </div>
 
-      {{#if codeError}}
-         <div class="text-center">
-         <h2 class="text-danger">
-             {{ mensaje }}
-         </h2>
-        </div>
-      {{else}}
-        <div class="text-center">
-          <h2 class="text-success">
-             {{ mensaje }}
-          </h2>
-        </div>
-      {{/if}}
 
       </div>
     </form>

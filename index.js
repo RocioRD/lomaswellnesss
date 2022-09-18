@@ -87,6 +87,7 @@ app.post('/crearusuario', (req, res) => {
    };
 
    let sql = 'INSERT INTO user SET ?'; //CREATE O ALTA
+   console.log(sql)
     conexion.query(sql, datos, (error, result) => {
       mensaje = 'Perfecto!';
       codeError =false;
@@ -261,25 +262,78 @@ app.get('/borrarUsuario/:idUsuario', (req, res) => {
     res.redirect('/editarBorrar');
 })
 
+/*
 app.get('/editarUsuario/:idUsuario', (req, res) => {
   let codeError = 0
-  let mensaje = 'editando'
-// armar la query para que este el nombre y el email
-// enviar el nombre y el email a editarElUsiario
-//en la instruccion de abajo vas a agregar el nombre y el email que trajiste por sql
-// en la pagina editarElUsuario.hbs vas a mostrar el contenido de dichas variables como sucede con 'petela'
-let sql = `SELECT userId, userName, email FROM user where userID = `;
-  res.render('editarElUsuario', {
-    titulo: 'Editar usuario',
-    codeError,
-    mensaje,
-    nombre: 'petela'
-  });
+
+  // armar la query para que este el userId, nombre y el email
+  // enviar el nombre y el email a editarElUsiario
+  //en la instruccion de abajo vas a agregar el nombre y el email que trajiste por sql
+  // en la pagina editarElUsuario.hbs vas a mostrar el contenido de dichas variables como sucede con 'petela'
+  let sql = `SELECT userId, userName, email FROM user where userID = '` + req.params.idUsuario + `'`;
+
+  conexion.query(sql, (error, results, fields) => {
+    let userId = results[0].userId
+    let userName = results[0].userName
+    let email = results[0].email
+    res.render('editarElUsuario', {
+      titulo: 'Editar usuario',
+      id: userId,
+      nombre: userName,
+      email: email
+    });
+  
+});
+
+  //res.redirect('/editarElUsuario');
+
+
+
 });
 
 app.post('/editarUsuario/:idUsuario', (req, res) => {
-  let sql = `UPDATE user SET userName = 'vivaboca' WHERE userId ='` + req.params.idUsuario + `'`;
+  let username = req.body.nombre
+  let email = req.body.email
+
+  let sql = `UPDATE user SET userName = '` + username + `', email= '` + email + `' WHERE userId ='` + req.params.idUsuario + `'`;
 
   conexion.query(sql, (error, results, fields) => {});
   res.redirect('/editarBorrar');
 });
+*/
+
+
+app.route('/editarUsuario/:idUsuario')
+
+  .get(function (req, res, next) {
+    let codeError = 0
+
+    // armar la query para que este el userId, nombre y el email
+    // enviar el nombre y el email a editarElUsiario
+    //en la instruccion de abajo vas a agregar el nombre y el email que trajiste por sql
+    // en la pagina editarElUsuario.hbs vas a mostrar el contenido de dichas variables como sucede con 'petela'
+    let sql = `SELECT userId, userName, email FROM user where userID = '` + req.params.idUsuario + `'`;
+  
+    conexion.query(sql, (error, results, fields) => {
+      let userId = results[0].userId
+      let userName = results[0].userName
+      let email = results[0].email
+      res.render('editarElUsuario', {
+        titulo: 'Editar usuario',
+        id: userId,
+        nombre: userName,
+        email: email
+      });
+    
+  });
+  
+  })
+  .post(function (req, res, next) {
+     let username = req.body.nombre
+    let email = req.body.email
+  
+    let sql = `UPDATE user SET userName = '` + username + `', email= '` + email + `' WHERE userId ='` + req.params.idUsuario + `'`;
+  
+    conexion.query(sql, (error, results, fields) => {});
+    res.redirect('/editarBorrar');
+  })
